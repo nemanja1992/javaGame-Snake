@@ -19,9 +19,14 @@ import javax.swing.JPasswordField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+
+import Users.User;
+import Users.UserFunctionsSerialization;
+
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class MainApplicationClass {
@@ -29,13 +34,13 @@ public class MainApplicationClass {
 	private JFrame frame;
 	private JTextField txtUsername;
 	private JTextField txtPassword;
-	private String userNick="admin";
-	private String userPass="admin";
-
+	private UserFunctionsSerialization read= new UserFunctionsSerialization();
+	private List<User> userL= read.deserialize("user.bin");
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -110,26 +115,55 @@ public class MainApplicationClass {
 			public void actionPerformed(ActionEvent arg0) {
 				log(txtUsername.getText(), txtPassword.getText());
 				
+				
 			}
 		});
 		btnLogin.setBounds(219, 172, 89, 23);
 		frame.getContentPane().add(btnLogin);
+		
+		JButton btnCAcc = new JButton("Create acc");
+		btnCAcc.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent arg0) {
+				CreateAccount ca=new CreateAccount();
+				ca.CreateAcc();
+				
+				
+			}
+		});
+		btnCAcc.setBounds(219, 172, 89, 23);
+		frame.getContentPane().add(btnCAcc);
 		
 		JLabel lblPassword = new JLabel("");
 		lblPassword.setToolTipText("password");
 		lblPassword.setBounds(162, 110, 55, 14);
 		frame.getContentPane().add(lblPassword);
 	}
+	
 	public void log(String userName,String userPassword) {
-		if((userNick.equals(userName))&&(userPass.equals(userPassword))) {
-			System.out.println("welcome!");
-			frame.dispose();
-			JFrame2 nf= new JFrame2();					
-			nf.NewScreen();
+//		if((userNick.equals(userName))&&(userPass.equals(userPassword))) {
+//			System.out.println("welcome!");
+//			frame.dispose();
+//			JFrame2 nf= new JFrame2();					
+//			nf.NewScreen();
+//		}
+		boolean a=false;
+		for(int i=0;i<userL.size();i++) {
+			
+			if((userL.get(i).getUsername().equals(userName))&&(userL.get(i).getPassword().equals(userPassword))) {
+				System.out.println("welcome!");
+				frame.dispose();
+				JFrame2 nf= new JFrame2();					
+				nf.NewScreen();
+				a=true;
+			}
+		
 		}
-		else {
-			System.out.println("wrong pass or nick!");
-			JOptionPane.showMessageDialog(frame, "Username and password doesn't existe");
+			 if(a==false){
+				System.out.println("wrong pass or nick!");
+				JOptionPane.showMessageDialog(frame, "Username and password doesn't existe");
+			
+			
 		}
 	}
 	
