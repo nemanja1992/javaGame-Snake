@@ -1,4 +1,4 @@
-package Login;
+package MainAppPackage;
 
 import java.awt.EventQueue;
 
@@ -65,7 +65,7 @@ public class JFrame2 {
 		background.setLayout(new FlowLayout());
 		
 		
-		JButton snakeBtn = new JButton("Snake");
+		JButton snakeBtn = new JButton("New game");
 		snakeBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			GameMainClass g=new GameMainClass();
@@ -73,8 +73,8 @@ public class JFrame2 {
 			frame.dispose();
 			}
 		});
-		snakeBtn.setBounds(219, 172, 89, 23);
-		snakeBtn.setLocation(10,10);
+		snakeBtn.setBounds(219, 172, 120, 27);
+		snakeBtn.setLocation(165,40);
 		snakeBtn.setPreferredSize(new Dimension(100, 100));
 		frame.getContentPane().add(snakeBtn);
 		frame.add(background);

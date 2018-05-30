@@ -1,7 +1,9 @@
 package SnakeGame;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Graphics;
@@ -12,11 +14,13 @@ import java.awt.image.BufferedImage;
 import java.awt.image.renderable.RenderableImage;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import Login.JFrame2;
+import MainAppPackage.JFrame2;
 
 @SuppressWarnings("serial")
 public class Game1 extends JPanel implements Runnable, KeyListener{
@@ -238,6 +242,7 @@ public class Game1 extends JPanel implements Runnable, KeyListener{
 			g2d.setColor(Color.LIGHT_GRAY);
 			g2d.setFont(new Font("Casttelar", Font.BOLD, 13));
 			g2d.drawString("Press enter to start!", 130, 222);
+			
 		}
 		g2d.setPaint(Color.WHITE);
 		if(dx == 0 && dy == 0) {
@@ -252,5 +257,6 @@ public class Game1 extends JPanel implements Runnable, KeyListener{
 			JOptionPane.showMessageDialog(null, "Use the arrow keys to move the snake" );
 		}
 	}
+	
 
 }

@@ -1,6 +1,7 @@
 package Users;
 
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -16,6 +17,8 @@ public class UserFunctionsSerialization {
 			try (ObjectOutputStream out= 
 					new ObjectOutputStream(new FileOutputStream(fileName))) {
 				out.writeObject(userL);
+				
+				
 		} catch (IOException e) {
 			System.out.println("A problem occurred during serialization");
 			System.out.println(e.getMessage());

@@ -1,4 +1,4 @@
-package Login;
+package MainAppPackage;
 
 import java.awt.EventQueue;
 
@@ -127,6 +127,7 @@ public class MainApplicationClass {
 			public void actionPerformed(ActionEvent arg0) {
 				CreateAccount ca=new CreateAccount();
 				ca.CreateAcc();
+				frame.dispose();
 				
 				
 			}
