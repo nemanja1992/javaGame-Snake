@@ -38,7 +38,7 @@ public class Game1 extends JPanel implements Runnable, KeyListener{
 	
 	//Game Stuff
 	private int SIZE = 10;
-	private Entity head,apple;
+	private Entity head,apple,skull;
 	private ArrayList<Entity> snake;
 	private int score;
 	private int level;
@@ -141,6 +141,8 @@ public class Game1 extends JPanel implements Runnable, KeyListener{
 		}
 		apple= new Entity(SIZE);
 		setApple();
+		skull=new Entity(SIZE);
+		setSkull();
 		score=0;
 		gameover = false;
 		level =1;
@@ -154,6 +156,13 @@ public class Game1 extends JPanel implements Runnable, KeyListener{
 		x= x - ( x % SIZE);
 		y= y - ( y % SIZE);
 		apple.setPosition(x, y);
+	}
+	public void setSkull() {
+		int x=(int) (Math.random()* (WIDTH - SIZE));
+		int y=(int) (Math.random()* (HEIGHT - SIZE));
+		x= x - ( x % SIZE);
+		y= y - ( y % SIZE);
+		skull.setPosition(x, y);
 	}
 	private void requestRender() {
 		render(g2d);
@@ -199,12 +208,13 @@ public class Game1 extends JPanel implements Runnable, KeyListener{
 		}
 		
 		for(Entity e : snake) {
-			if(e.isCollisiong(head)) {
+			if(e.isCollisiong(head)||snake.size()==1) {
 				gameover = true;
 				break;
 			}
 			
 		}
+	
 		
 		if(apple.isCollisiong(head)) {
 			score++;
@@ -213,13 +223,45 @@ public class Game1 extends JPanel implements Runnable, KeyListener{
 			Entity e = new Entity(SIZE);
 			e.setPosition(-100,-100);
 			snake.add(e);
-			if(score % 10 == 0) {
-				level++;
-				if(level > 10 ) level = 10;
-				setFPS(level * 10);
+			if(score>=10 && score<20) {
+				level=2;
+				
 			}
+			else if(score>=20 && score<30) {
+				level=3;
+				
+			}
+			else if(score>=30 && score<40) {
+				level=4;
+			}
+			else if(score>=40 && score<50) {
+				level=5;
+			}
+			else if(score>=50 && score<60) {
+				level=6;
+			}
+			else if(score>=60 && score<70) {
+				level=7;
+			}
+			else if(score>=70 && score<80) {
+				level=8;
+			}
+			else if(score>=80 && score<90) {
+				level=9;
+			}else if(score>=90 && score<100) {
+				level=10;
+			}
+			
+			setFPS(level * 10);
 		}
-		
+		if(skull.isCollisiong(head)) {
+			
+			score--;
+			setSkull();
+			
+			snake.remove(snake.get(snake.size()-1));
+			
+		}
 		if(head.getX() < 0) head.setX(WIDTH-10);
 		if(head.getY() < 0) head.setY(HEIGHT-10);
 		if(head.getX() > WIDTH-10) head.setX(0);
@@ -234,14 +276,17 @@ public class Game1 extends JPanel implements Runnable, KeyListener{
 			e.render(g2d);
 		}
 		
+		g2d.setColor(Color.YELLOW);
+		apple.render(g2d);
 		g2d.setColor(Color.RED);
 		g2d.setFont(new Font("Casttelar", Font.BOLD, 40));
-		apple.render(g2d);
+		skull.render(g2d);
 		if(gameover) {
 			g2d.drawString("GameOver!" , 100,200);
 			g2d.setColor(Color.LIGHT_GRAY);
 			g2d.setFont(new Font("Casttelar", Font.BOLD, 13));
 			g2d.drawString("Press enter to start!", 130, 222);
+			
 			
 		}
 		g2d.setPaint(Color.WHITE);
